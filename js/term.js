@@ -1,14 +1,16 @@
-let dir = "~";
-
 class Directory {
-    constructor(name, represent) {
-        this.name = name;
+    constructor(represent) {
         this.represent = represent;
         this.descendants = [];
     }
 }
+let dir = "~";
+const home = new Directory("~");
+let currentDirectory = home;
 
-const home = new Directory("Home", "~");
+
+
+
 
 function isCommandValid(command) {
     const validCommands = ["pwd", "echo", "cd", "mkdir"];
@@ -19,16 +21,18 @@ function mkdir(args, term) {
 
 }
 
+//TODO Hay un error cuando tratas de hacer cd en code a un dir que no existe
 function cd(args, term) {
     let exist;
     if (args === undefined)
     {
         dir = "~";
+        currentDirectory = home;
         term.value += "\nCambiando al directorio " + dir;
     }
     else
     {
-        home.descendants.forEach(function (item) {
+        currentDirectory.descendants.forEach(function (item) {
             if (item.represent === args) {
                 exist = 1;
             } else {
@@ -37,9 +41,10 @@ function cd(args, term) {
         });
         if (exist){
             dir += "/" + args;
-            term.value += "\nCambiando al directorio " + args;
+            currentDirectory = currentDirectory.descendants[args];
+            term.value += "\nCambiando al directorio " + currentDirectory.represent;
         }else{
-            term.value += "\nEse directorio no existe o no está en " + home.represent;
+            term.value += "\nEse directorio no existe o no está en " + currentDirectory.represent;
         }
     }
 
@@ -105,7 +110,7 @@ function initTerm(term){
         'color: #ffffff; font-size: large;';
     termwrite.focus();
     termwrite.scrollIntoView();
-    const code = new Directory("Code", "code");
+    const code = new Directory("code");
     home.descendants.push(code);
     term.appendChild(termwrite);
     termwrite.value += "Comandos posibles: pwd, cd, echo y mkdir.\n";
