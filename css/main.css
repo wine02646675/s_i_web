@@ -1,0 +1,79 @@
+
+#start-button {
+    border-radius: 100%;
+    padding: 0;
+    height: 40px;
+    width: 40px;
+    min-width: 40px;
+    margin: 15px 20px 15px 20px;
+    transform: scale(1.5, 1.5);
+}
+#menu {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:  	hsla(197, 96%, 31%, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    color: #343837;
+}
+body {
+    background-image: url("https://picsum.photos/1080");
+    background-position: center;
+    background-size: cover;
+    font-family: "Noto Sans", serif;
+}
+
+.verticalLine {
+    display: inline-block;
+    background-color: #343837;
+    height: 40px;
+    width: 2px;
+}
+
+.appButton {
+    margin: 10px 30px 10px 30px;
+    background: transparent no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    height: 50px;
+    transform: scale(1.5, 1.5);
+    color: #343837;
+}
+
+.appButton:focus {
+    background: transparent no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+.appButton:hover {
+    transform: scale(2.5, 2.5);
+    background: 0 !important;
+}
+
+.appButton:active {
+    transform: scale(2.5, 2.5);
+}
+
+#dateTime {
+    position: fixed;
+    right: 0;
+    bottom: 0.5;
+    margin-right: 10px;
+    font-size: small;
+}
+
+textarea {
+    resize: none;
+}

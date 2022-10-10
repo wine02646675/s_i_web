@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Alberto González Rosa</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://unpkg.com/7.css" />
+    <link rel="stylesheet" href="./css/all.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+    <script src="./js/all.min.js"></script>
+    <style>
+        .tur::before,
+        .tur > .title-bar {
+            background-color: 	hsl(197, 96%, 31%);
+        }
+    </style>
+</head>
+<body>
+    <div id="window-zone"></div>
+    <nav id="menu">
+        <div style="display: flex; align-items: center;">
+            <button id="start-button"><i class="fa-solid fa-house-chimney"></i></button>
+            <hr class="verticalLine">
+        </div>
+        <button class="appButton" title="Archivos" onclick='openWindow("arch")'><i class="fa-solid fa-folder-open"></i></button>
+        <button class="appButton" title="Terminal" onclick='openWindow("term")'><i class="fa-solid fa-terminal"></i></button>
+        <button class="appButton" title="E-Mail" onclick='openWindow("mail")'><i class="fa-solid fa-envelope-open-text"></i></button>
+        <button class="appButton" title="Mi código" onclick='openWindow("code")'><i class="fa-solid fa-code"></i></button>
+
+        <div id="dateTime" style="display: flex; align-items: center; flex-direction: column;">
+            <b><time id="hora" datetime="00:00">00:00 AM</time></b>
+            <b><time id="fecha" datetime="30/12/1996">30/12/1996</time></b>
+        </div>
+    </nav>
+    <script src="./js/main.js"></script>
+    <script src="./js/term.js"></script>
+</body>
+</html>
