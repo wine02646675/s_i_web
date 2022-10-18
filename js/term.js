@@ -1,16 +1,13 @@
 class Directory {
-    constructor(represent) {
+    constructor(represent, parent) {
         this.represent = represent;
         this.descendants = [];
+        this.parent = parent;
     }
 }
 let dir = "~";
-const home = new Directory("~");
+const home = new Directory("~", null);
 let currentDirectory = home;
-
-
-
-
 
 function isCommandValid(command) {
     const validCommands = ["pwd", "echo", "cd", "mkdir"];
@@ -21,14 +18,25 @@ function mkdir(args, term) {
 
 }
 
-//TODO Hay un error cuando tratas de hacer cd en code a un dir que no existe
 function cd(args, term) {
     let exist;
+
     if (args === undefined)
     {
         dir = "~";
         currentDirectory = home;
         term.value += "\nCambiando al directorio " + dir;
+    }
+    else if (args === "..")
+    {
+        if (currentDirectory.parent != null)
+        {
+            dir = dir.substring(0, dir.lastIndexOf("/"));
+            currentDirectory = currentDirectory.parent;
+            term.value += "\nCambiando a " + currentDirectory.represent;
+        }
+        else
+            term.value += "\nYa se está en la raíz, no se puede cambiar al anterior directorio.";
     }
     else
     {
@@ -41,7 +49,9 @@ function cd(args, term) {
         });
         if (exist){
             dir += "/" + args;
-            currentDirectory = currentDirectory.descendants[args];
+            currentDirectory = currentDirectory.descendants.find(function (descendant){
+                return descendant.represent === args;
+            });
             term.value += "\nCambiando al directorio " + currentDirectory.represent;
         }else{
             term.value += "\nEse directorio no existe o no está en " + currentDirectory.represent;
@@ -110,7 +120,7 @@ function initTerm(term){
         'color: #ffffff; font-size: large;';
     termwrite.focus();
     termwrite.scrollIntoView();
-    const code = new Directory("code");
+    const code = new Directory("code", home);
     home.descendants.push(code);
     term.appendChild(termwrite);
     termwrite.value += "Comandos posibles: pwd, cd, echo y mkdir.\n";
