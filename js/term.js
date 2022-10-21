@@ -15,7 +15,9 @@ function isCommandValid(command) {
 }
 
 function mkdir(args, term) {
-
+    const new_dir = new Directory(args, currentDirectory);
+    currentDirectory.descendants.push(new_dir);
+    term.value += "\nCarpeta "+ new_dir.represent + " creada.";
 }
 
 function cd(args, term) {
