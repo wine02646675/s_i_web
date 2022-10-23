@@ -10,7 +10,7 @@ const home = new Directory("~", null);
 let currentDirectory = home;
 
 function isCommandValid(command) {
-    const validCommands = ["pwd", "echo", "cd", "mkdir"];
+    const validCommands = ["pwd", "echo", "cd", "mkdir", "ls"];
     return validCommands.includes(command);
 }
 
@@ -18,6 +18,14 @@ function mkdir(args, term) {
     const new_dir = new Directory(args, currentDirectory);
     currentDirectory.descendants.push(new_dir);
     term.value += "\nCarpeta "+ new_dir.represent + " creada.";
+}
+
+function ls(term) {
+    term.value += "\n{\nCarpetas en "+ currentDirectory.represent + " :";
+    currentDirectory.descendants.forEach(function (dir) {
+        term.value += "\n"+dir.represent;
+    });
+    term.value += "\n}";
 }
 
 function cd(args, term) {
@@ -45,6 +53,7 @@ function cd(args, term) {
         currentDirectory.descendants.forEach(function (item) {
             if (item.represent === args) {
                 exist = 1;
+                return(exist);
             } else {
                 exist = 0;
             }
@@ -100,6 +109,8 @@ function getCommand(term){
             cd(args, term);
         } else if (command === "mkdir") {
             mkdir(args, term);
+        } else if (command === "ls") {
+            ls(term);
         }
     }else{
         term.value += "\nEse comando no existe.";
@@ -125,6 +136,6 @@ function initTerm(term){
     const code = new Directory("code", home);
     home.descendants.push(code);
     term.appendChild(termwrite);
-    termwrite.value += "Comandos posibles: pwd, cd, echo y mkdir.\n";
+    termwrite.value += "Comandos posibles: pwd, cd, ls, echo y mkdir.\n";
 }
 
